@@ -4,11 +4,11 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const { body, validationResult } = require("express-validator");
 var jwt = require('jsonwebtoken');
-
+const fetchuser = require('../middleware/fetchuser');
 const JWT_SECRET = 'adarshyoboy' ;
 
 
-//create a user using POST "/api/auth/createuser". Doen't require Auth(Login)
+//ROUTE 1 create a user using POST "/api/auth/createuser". Doen't require Auth(Login)
 router.post(
   "/createuser",
   [
@@ -61,7 +61,7 @@ router.post(
   }
 );
 
-//Authenticate a user using POST "/api/auth/login". 
+//ROUTE 2 Authenticate a user using POST "/api/auth/login". 
 router.post(
     "/login",
     [
@@ -106,5 +106,24 @@ router.post(
 
         }
     })
+
+
+
+    //ROUTE 3: Get loggedIn user details  using POST "/api/auth/getuser". Login required
+    router.post(
+        "/getuser",fetchuser,
+       
+        async (req, res) => {
+    try {
+        userId =req.user.id;
+        const user = await User.findById(userId).select("-password")
+        res.send(user)
+
+    }  catch (error){
+        console.error(error.message);
+  res.status(500).send("Internal Server Error Occured");
+
+    }
+})
 
 module.exports = router;
