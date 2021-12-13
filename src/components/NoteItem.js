@@ -9,8 +9,9 @@ function NoteItem(props) {
 <div className="card my-3" >
   <div className="card-body">
     <h5 className="card-title">{note.title}</h5>
-    <p className="card-text">{note.description} Et voluptate qui officia veniam. Aliquip labore nisi sint pariatur sit veniam irure irure tempor sit. Magna in proident duis commodo do pariatur tempor deserunt. Do id ex reprehenderit in occaecat eiusmod mollit dolore do sunt ipsum. Sit amet consequat consectetur consequat incididunt non et amet ea. Laboris consectetur culpa qui mollit. Aute et eu id id ad cillum incididunt ex nisi anim pariatur adipisicing.</p>
-    
+    <p className="card-text">{note.description} </p>
+    <i className="fas fa-trash mx-3"></i>
+    <i className="far fa-edit mx-3"></i>
   </div>
 </div>
             
