@@ -46,7 +46,11 @@ console.log(json)
       },
       
       body: JSON.stringify({title, description, tag})
+
+      
     });
+    const json = await response.json();
+      console.log(json);
     
 
 
@@ -83,33 +87,39 @@ setNotes(notes.concat(note))
   setNotes(newNotes);
       
   }
+
+
   //Edit a note
   const editNote = async (id, title, description, tag)=>{
     //API CALL
     const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-      method: 'PUT',
+      method:'PUT',
      
       headers: {
-        'Content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFhZGIwYzhlZTg1YTUyOGY2YmU1MTI5In0sImlhdCI6MTYzODk0ODAyNX0.y7TD3coYHxLF9KL6SYnpKO1LkVAK9woWadmJrS9SPR0'
+        "Content-Type": "application/json",
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFhZGIwYzhlZTg1YTUyOGY2YmU1MTI5In0sImlhdCI6MTYzODk0ODAyNX0.y7TD3coYHxLF9KL6SYnpKO1LkVAK9woWadmJrS9SPR0"
        
       },
       
-      body: JSON.stringify({title, description, tag})
+      body: JSON.stringify({id, title, description, tag})
     });
-    const json = response.json(); 
+    const json = await response.json(); 
+    console.log(id,json);
   
-
+let newNotes = JSON.parse(JSON.stringify(notes))
     //Logic to edit in client
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
+    for (let index = 0; index < newNotes.length; index++) {
+      const element = newNotes[index];
       if(element._id===id){
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        newNotes[index].title = title;
+        newNotes[index].description = description;
+        newNotes[index].tag = tag;
+        break;
       }
       
+      
     }
+    setNotes(newNotes);
       
 }
 
