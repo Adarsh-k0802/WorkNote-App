@@ -82,6 +82,7 @@ setNote({...note, [e.target.name]:e.target.value})
                     aria-describedby="emailHelp"
                     value={note.etitle}
                     onChange={onChange}
+                    minLength={5} required
                   />
                 </div>
                 <div className="mb-3">
@@ -95,6 +96,7 @@ setNote({...note, [e.target.name]:e.target.value})
                     name="edescription"
                     value={note.edescription}
                     onChange={onChange}
+                    minLength={5} required
                   />
                 </div>
                 <div className="mb-3">
@@ -123,7 +125,7 @@ setNote({...note, [e.target.name]:e.target.value})
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary" onClick={handleClick}>
+              <button disabled={note.etitle.length<5 || note.edescription.length<5} type="button" className="btn btn-primary" onClick={handleClick}>
                 Update Note
               </button>
             </div>
@@ -133,6 +135,10 @@ setNote({...note, [e.target.name]:e.target.value})
 
       <div className="row my-3">
         <h1>Your Notes</h1>
+        <div className="container mx-2">
+
+            {notes.length===0 && 'No Notes to Display'}
+        </div>
         {notes.map((note) => {
           return (
             <NoteItem key={note._id} updateNote={updateNote} note={note} />

@@ -49,21 +49,9 @@ console.log(json)
 
       
     });
-    const json = await response.json();
-      console.log(json);
-    
-
-
-      const note={
-        "_id": "61b17b4eb04a3dd1b4867d8bd",
-        "user": "61adb0c8ee85a528f6be51529",
-        "title":title,
-        "description": description,
-        "tag":tag,
-        "Date": "2021-12-09T03:43:10.012Z",
-        "__v": 0
-      };
-setNotes(notes.concat(note))
+    const note = await response.json();
+     
+  setNotes(notes.concat(note))
   }
 
   //Delete a note
