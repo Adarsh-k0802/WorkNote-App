@@ -18,18 +18,20 @@ router.post(
   ],
   async (req, res) => {
     //if there are errors return bad request and the errors.
+    success= false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ success, errors: errors.array() });
     }
     //check weather the user with this email exists already
     try {
       let user = await User.findOne({ email: req.body.email });
+      
 
       if (user) {
         return res
           .status(400)
-          .json({ error: "This Email already has been registered" });
+          .json({ success, error: "This Email already has been registered" });
       }
 
 
@@ -51,7 +53,8 @@ router.post(
       const authtoken = jwt.sign(data, JWT_SECRET);
      
     //   res.json(user);
-    res.json({authtoken:authtoken});
+    success= true;
+    res.json({success, authtoken:authtoken});
 
 
     } catch (error) {

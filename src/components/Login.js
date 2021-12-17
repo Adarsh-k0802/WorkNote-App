@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
-const Login = () => {
+const Login = (props) => {
 
     const [credentials, setCredentials] = useState({email:"", password:""})
     let history = useHistory();
@@ -28,10 +28,12 @@ const response = await fetch("http://localhost:5000/api/auth/login", {
 if(json.success){
     //save the auth token & redirect
     localStorage.setItem('token',json.authtoken);
+    props.showAlert("LogedIn successfully","success");
     history.push("/");
+    
 }
 else{
-    alert("invalid credentials")
+  props.showAlert("Invalid Credentials","danger")
 }
 }
 
@@ -41,6 +43,7 @@ const onChange= (e)=>{
 
     return (
         <div>
+          <h1>Login to Continue</h1>
            <form onSubmit={handleSubmit}>
   <div  className="mb-3">
     <label htmlFor="email"  className="form-label">Email address</label>
