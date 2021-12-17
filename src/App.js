@@ -45,9 +45,9 @@ function App() {
     <Route exact path="/">
           <Home showAlert={showAlert} />
           </Route>
-          <Route exact path="/about">
+          {/* <Route exact path="/about">
           <About/>
-          </Route>
+          </Route> */}
           <Route exact path="/login">
           <Login showAlert={showAlert}/>
           </Route>
